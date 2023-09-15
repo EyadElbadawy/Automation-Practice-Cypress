@@ -58,4 +58,3 @@ To run the project in headless mode for automated execution, suitable for CI/CD 
 
 3. Additionally, Cypress will generate HTML and JSON reports in the "cypress/reports" directory, which you can use for further analysis and reporting.
 
-Now you know how to set up and run the project using Cypress in Visual Studio Code. Happy testing!
