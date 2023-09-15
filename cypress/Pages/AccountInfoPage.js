@@ -1,0 +1,45 @@
+class AccountInfo {
+    chooseGender(){
+        cy.get('[id="id_gender1"]').click();
+    }
+    setPassword(password){
+        cy.get('[data-qa="password"]').type(password);
+    }
+    chooseDay(){
+        cy.get('[data-qa="days"]').select('26');
+    }
+    chooseMonth(){
+        cy.get('[data-qa="months"]').select('September');
+    }
+    chooseYear(){
+        cy.get('[data-qa="years"]').select('1997');
+    }
+    setFirstName(firstName){
+        cy.get('[data-qa="first_name"]').type(firstName);
+    }
+    setLastName(lastName){
+        cy.get('[data-qa="last_name"]').type(lastName);
+    }
+    setAddress(address){
+        cy.get('[data-qa="address"]').type(address);
+    }
+    chooseCountry(){
+        cy.get('[data-qa="country"]').select('Canada');
+    }
+    setState(state){
+        cy.get('[data-qa="state"]').type(state);
+    }
+    setCity(city){
+        cy.get('[data-qa="city"]').type(city);
+    }
+    setZipCode(zipcode){
+        cy.get('[data-qa="zipcode"]').type(zipcode);
+    }
+    setMobileNumber(mobileNumber){
+        cy.get('[data-qa="mobile_number"]').type(mobileNumber);
+    }
+    clickSubmit(){
+        cy.get('[data-qa="create-account"]').click();
+    }
+}
+export default AccountInfo
