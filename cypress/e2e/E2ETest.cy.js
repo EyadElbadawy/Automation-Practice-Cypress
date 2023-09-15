@@ -77,17 +77,14 @@ describe('Performing E2E testing for the website', function () {
         products.clickSearch();
 
         //verifying that cotton products are 6
-        cy.get('.features_items').should('exist').as('features_items');
-        cy.get('@features_items').find('.col-sm-4').should('have.length', 6);
+        cy.get('.features_items').should('exist').find('.col-sm-4').should('have.length', 6);
+       // cy.get('@features_items').find('.col-sm-4').should('have.length', 6);
 
         //storing data in a .txtfile
         let paragraphTexts = [];
-        cy.get('.features_items p').each(($p) => {
+        cy.get('.productinfo.text-center p').each(($p) => {
             paragraphTexts.push($p.text()); // Push the text content to the array
           });
-        //   paragraphTexts.forEach((text, index) => {
-        //     cy.log(`Paragraph ${index + 1} text: ${text}`);
-        //   });
           cy.writeFile('info.txt', paragraphTexts)
         })
     })
