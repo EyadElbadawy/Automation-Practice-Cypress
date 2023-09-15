@@ -6,8 +6,7 @@ import Products from "../Pages/ProductsPage"
 describe('Performing E2E testing for the website', function () {
 
     Cypress.on('uncaught:exception', function (err, runnable) {
-        // returning false here prevents Cypress from
-        // failing the test
+        // returning false here prevents Cypress from failing the test
         return false
     })
     //runs before each test
@@ -35,7 +34,7 @@ describe('Performing E2E testing for the website', function () {
         })
 
         //enteringAccountInfo
-        cy.get('@data').then(function (data){
+        cy.get('@data').then(function (data) {
             const accountInfo = new AccountInfo();
             accountInfo.chooseGender();
             accountInfo.setPassword(data.password);
@@ -57,7 +56,7 @@ describe('Performing E2E testing for the website', function () {
         cy.contains('Account Created!').should('exist');
         const accountConfirmation = new AccountConfirmation();
         accountConfirmation.ClickContinue();
-        
+
         //verify Account is logged in
         cy.contains(' Logout').should('exist');
 
@@ -70,22 +69,21 @@ describe('Performing E2E testing for the website', function () {
         cy.get('@brandsName').find('li').should('have.length', 8);
 
         //check products
-        cy.get('@data').then(function (data){
-        homePage.ClickProduct();
-        const products = new Products();
-        products.enterSearchWord(data.searchWord);
-        products.clickSearch();
+        cy.get('@data').then(function (data) {
+            homePage.ClickProduct();
+            const products = new Products();
+            products.enterSearchWord(data.searchWord);
+            products.clickSearch();
 
-        //verifying that cotton products are 6
-        cy.get('.features_items').should('exist').find('.col-sm-4').should('have.length', 6);
-       // cy.get('@features_items').find('.col-sm-4').should('have.length', 6);
+            //verifying that cotton products are 6
+            cy.get('.features_items').should('exist').find('.col-sm-4').should('have.length', 6);
 
-        //storing data in a .txtfile
-        let paragraphTexts = [];
-        cy.get('.productinfo.text-center p').each(($p) => {
-            paragraphTexts.push($p.text()); // Push the text content to the array
-          });
-          cy.writeFile('info.txt', paragraphTexts)
+            //storing data in a .txtfile
+            let paragraphTexts = [];
+            cy.get('.productinfo.text-center p').each(($p) => {
+                paragraphTexts.push($p.text()); // Push the text content to the array
+            });
+            cy.writeFile('info.txt', paragraphTexts)
         })
     })
 })
