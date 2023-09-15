@@ -61,12 +61,10 @@ describe('Performing E2E testing for the website', function () {
         cy.contains(' Logout').should('exist');
 
         //verifying it has 34 items
-        cy.get('.features_items').should('exist').as('featuresItems');
-        cy.get('@featuresItems').find('.col-sm-4').should('have.length', 34);
+        cy.get('.features_items').should('exist').find('.col-sm-4').should('have.length', 34);
 
         //verifying that BRANDS has 8 brands 
-        cy.get('.brands-name').should('exist').as('brandsName');
-        cy.get('@brandsName').find('li').should('have.length', 8);
+        cy.get('.brands-name').should('exist').find('li').should('have.length', 8);
 
         //check products
         cy.get('@data').then(function (data) {
