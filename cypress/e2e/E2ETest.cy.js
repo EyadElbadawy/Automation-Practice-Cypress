@@ -1,87 +1,64 @@
-import HomePage from "../Pages/HomePage"
-import SignUp from "../Pages/SignUpPage"
-import AccountInfo from "../Pages/AccountInfoPage"
-import AccountConfirmation from "../Pages/AccountConfirmation"
-import Products from "../Pages/ProductsPage"
-describe('Performing E2E testing for the website', function () {
+import HomePage from "../Pages/HomePage";
+import SignUpPage from "../Pages/SignUpPage";
+import AccountInfoPage from "../Pages/AccountInfoPage";
+import AccountConfirmationPage from "../Pages/AccountConfirmationPage";
+import ProductsPage from "../Pages/ProductsPage";
 
+describe('E2E Testing for the Website', function () {
     Cypress.on('uncaught:exception', function (err, runnable) {
-        // returning false here prevents Cypress from failing the test
-        return false
-    })
-    //runs before each test
+        // Prevent Cypress from failing the test on uncaught exceptions
+        return false;
+    });
+
+    // Set up before running tests
     beforeEach(function () {
         cy.viewport(1920, 1080);
         cy.fixture('TestData').as('data');
-    })
-    //run once before starting the test
+    });
+
+    // Run once before starting the test suite
     before(function () {
         cy.visit('/');
-    })
-    it('E2E user creation scenario', function () {
+    });
+
+    it('User Registration and Shopping Scenario', function () {
+        // Ensure the correct website URL
         cy.url().should('eq', 'https://automationexercise.com/');
 
-        //Entering signup page
+        // Navigate to the signup page
         const homePage = new HomePage();
-        homePage.ClickLogin();
+        homePage.navigateToSignUp();
 
-        //entering credentials
-        cy.get('@data').then(function (data) {
-            const signUp = new SignUp();
-            signUp.setUserName(data.username);
-            signUp.setEmail(data.email);
-            signUp.clickSubmit();
-        })
+        // Fill in user registration details
+        const signUpPage = new SignUpPage();
+        signUpPage.fillRegistrationForm(this.data.username, this.data.email);
 
-        //enteringAccountInfo
-        cy.get('@data').then(function (data) {
-            const accountInfo = new AccountInfo();
-            accountInfo.chooseGender();
-            accountInfo.setPassword(data.password);
-            accountInfo.chooseDay();
-            accountInfo.chooseMonth();
-            accountInfo.chooseYear();
-            accountInfo.setFirstName(data.firstName);
-            accountInfo.setLastName(data.lastName);
-            accountInfo.setAddress(data.address);
-            accountInfo.chooseCountry();
-            accountInfo.setState(data.state);
-            accountInfo.setCity(data.city);
-            accountInfo.setZipCode(data.zipcode);
-            accountInfo.setMobileNumber(data.mobile_Number);
-            accountInfo.clickSubmit();
-        })
+        // Fill in user account information
+        const accountInfoPage = new AccountInfoPage();
+        accountInfoPage.fillAccountInfoForm(this.data);
 
-        //Account Confirmation Pgae
-        cy.contains('Account Created!').should('exist');
-        const accountConfirmation = new AccountConfirmation();
-        accountConfirmation.ClickContinue();
+        // Confirm successful account creation
+        const accountConfirmationPage = new AccountConfirmationPage();
+        accountConfirmationPage.confirmAccountCreation();
 
-        //verify Account is logged in
-        cy.contains(' Logout').should('exist');
+        // Verify that the user is logged in
+        homePage.verifyUserLoggedIn();
 
-        //verifying it has 34 items
-        cy.get('.features_items').should('exist').find('.col-sm-4').should('have.length', 34);
+        // Verify the presence of items on the page
+        homePage.verifyItemsExist(34);
 
-        //verifying that BRANDS has 8 brands 
-        cy.get('.brands-name').should('exist').find('li').should('have.length', 8);
+        // Verify the number of brands
+        homePage.verifyBrandCount(8);
 
-        //check products
-        cy.get('@data').then(function (data) {
-            homePage.ClickProduct();
-            const products = new Products();
-            products.enterSearchWord(data.searchWord);
-            products.clickSearch();
+        // Perform product search
+        homePage.ClickProduct();
+        const productsPage = new ProductsPage();
+        productsPage.performProductSearch(this.data.searchWord);
 
-            //verifying that cotton products are 6
-            cy.get('.features_items').should('exist').find('.col-sm-4').should('have.length', 6);
+        // Verify the number of products found
+        productsPage.verifyProductCount(6);
 
-            //storing data in a .txtfile
-            let paragraphTexts = [];
-            cy.get('.productinfo.text-center p').each(($p) => {
-                paragraphTexts.push($p.text()); // Push the text content to the array
-            });
-            cy.writeFile('info.txt', paragraphTexts)
-        })
-    })
-})
+        // Store product information in a .txt file
+        productsPage.storeProductInfo('info.txt');
+    });
+});

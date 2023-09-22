@@ -1,45 +1,93 @@
-class AccountInfo {
-    chooseGender(){
-        cy.get('[id="id_gender1"]').click();
+class AccountInfoPage {
+    // Locators
+    static GENDER_RADIO_BUTTON = '[id="id_gender1"]';
+    static PASSWORD_INPUT = '[data-qa="password"]';
+    static DAYS_SELECT = '[data-qa="days"]';
+    static MONTHS_SELECT = '[data-qa="months"]';
+    static YEARS_SELECT = '[data-qa="years"]';
+    static FIRST_NAME_INPUT = '[data-qa="first_name"]';
+    static LAST_NAME_INPUT = '[data-qa="last_name"]';
+    static ADDRESS_INPUT = '[data-qa="address"]';
+    static COUNTRY_SELECT = '[data-qa="country"]';
+    static STATE_INPUT = '[data-qa="state"]';
+    static CITY_INPUT = '[data-qa="city"]';
+    static ZIPCODE_INPUT = '[data-qa="zipcode"]';
+    static MOBILE_NUMBER_INPUT = '[data-qa="mobile_number"]';
+    static SUBMIT_BUTTON = '[data-qa="create-account"]';
+
+    // Methods
+    chooseGender() {
+        cy.get(AccountInfoPage.GENDER_RADIO_BUTTON).click();
     }
-    setPassword(password){
-        cy.get('[data-qa="password"]').type(password);
+
+    setPassword(password) {
+        cy.get(AccountInfoPage.PASSWORD_INPUT).type(password);
     }
-    chooseDay(){
-        cy.get('[data-qa="days"]').select('26');
+
+    chooseDay() {
+        cy.get(AccountInfoPage.DAYS_SELECT).select('26');
     }
-    chooseMonth(){
-        cy.get('[data-qa="months"]').select('September');
+
+    chooseMonth() {
+        cy.get(AccountInfoPage.MONTHS_SELECT).select('September');
     }
-    chooseYear(){
-        cy.get('[data-qa="years"]').select('1997');
+
+    chooseYear() {
+        cy.get(AccountInfoPage.YEARS_SELECT).select('1997');
     }
-    setFirstName(firstName){
-        cy.get('[data-qa="first_name"]').type(firstName);
+
+    setFirstName(firstName) {
+        cy.get(AccountInfoPage.FIRST_NAME_INPUT).type(firstName);
     }
-    setLastName(lastName){
-        cy.get('[data-qa="last_name"]').type(lastName);
+
+    setLastName(lastName) {
+        cy.get(AccountInfoPage.LAST_NAME_INPUT).type(lastName);
     }
-    setAddress(address){
-        cy.get('[data-qa="address"]').type(address);
+
+    setAddress(address) {
+        cy.get(AccountInfoPage.ADDRESS_INPUT).type(address);
     }
-    chooseCountry(){
-        cy.get('[data-qa="country"]').select('Canada');
+
+    chooseCountry() {
+        cy.get(AccountInfoPage.COUNTRY_SELECT).select('Canada');
     }
-    setState(state){
-        cy.get('[data-qa="state"]').type(state);
+
+    setState(state) {
+        cy.get(AccountInfoPage.STATE_INPUT).type(state);
     }
-    setCity(city){
-        cy.get('[data-qa="city"]').type(city);
+
+    setCity(city) {
+        cy.get(AccountInfoPage.CITY_INPUT).type(city);
     }
-    setZipCode(zipcode){
-        cy.get('[data-qa="zipcode"]').type(zipcode);
+
+    setZipCode(zipcode) {
+        cy.get(AccountInfoPage.ZIPCODE_INPUT).type(zipcode);
     }
-    setMobileNumber(mobileNumber){
-        cy.get('[data-qa="mobile_number"]').type(mobileNumber);
+
+    setMobileNumber(mobileNumber) {
+        cy.get(AccountInfoPage.MOBILE_NUMBER_INPUT).type(mobileNumber);
     }
-    clickSubmit(){
-        cy.get('[data-qa="create-account"]').click();
+
+    clickSubmit() {
+        cy.get(AccountInfoPage.SUBMIT_BUTTON).click();
+    }
+
+    fillAccountInfoForm(data) {
+        this.chooseGender();
+        this.setPassword(data.password);
+        this.chooseDay();
+        this.chooseMonth();
+        this.chooseYear();
+        this.setFirstName(data.firstName);
+        this.setLastName(data.lastName);
+        this.setAddress(data.address);
+        this.chooseCountry();
+        this.setState(data.state);
+        this.setCity(data.city);
+        this.setZipCode(data.zipcode);
+        this.setMobileNumber(data.mobile_Number);
+        this.clickSubmit();
     }
 }
-export default AccountInfo
+
+export default AccountInfoPage;
