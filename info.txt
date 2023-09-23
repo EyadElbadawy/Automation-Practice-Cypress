@@ -1,0 +1,8 @@
+[
+  "Cotton Mull Embroidered Dress",
+  "Blue Cotton Indie Mickey Dress",
+  "Pure Cotton V-Neck T-Shirt",
+  "Pure Cotton Neon Green Tshirt",
+  "Cotton Silk Hand Block Print Saree",
+  "Beautiful Peacock Blue Cotton Linen Saree"
+]
