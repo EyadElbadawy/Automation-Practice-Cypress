@@ -60,5 +60,11 @@ describe('E2E Testing for the Website', function () {
 
         // Store product information in a .txt file
         productsPage.storeProductInfo('info.txt');
+
+        //delete the account
+        productsPage.deleteAccount();
+
+        //assert on account deletion
+        productsPage.assertAccountDelete();
     });
 });

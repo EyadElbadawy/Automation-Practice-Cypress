@@ -3,6 +3,7 @@ class ProductsPage {
     static FEATURES_ITEMS = '.features_items';
     static COL_SM_4 = '.col-sm-4';
     static PRODUCT_INFO = '.productinfo.text-center p';
+    static DELETION_TEXT = 'Account Deleted!';
 
     // Locator for the search input
     static SEARCH_INPUT = '[id="search_product"]';
@@ -38,6 +39,16 @@ class ProductsPage {
             paragraphTexts.push($p.text()); // Push the text content to the array
         });
         cy.writeFile(fileName, paragraphTexts);
+    }
+
+    //Method to delete the account
+    deleteAccount(){
+        cy.get('.shop-menu > .nav > :nth-child(5) > a').click();
+    }
+
+    //check that the account is deleted
+    assertAccountDelete(){
+        cy.contains(ProductsPage.DELETION_TEXT).should('exist');
     }
 }
 
