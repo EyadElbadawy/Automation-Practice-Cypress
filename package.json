@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "node_modules\\.bin\\cypress run --config pageLoadTimeout=100000",
+    "cy:run": "cypress run --spec 'cypress/e2e'",
     "runtests": "npm run test --"
   },
   "author": "Eyad",
